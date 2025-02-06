@@ -1,36 +1,68 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🛍️ Simple E-commerce with Categorization
 
-## Getting Started
+## 🚀 Overview
 
-First, run the development server:
+This project is a simple e-commerce authentication system that allows users to sign up, log in, and mark their preferred categories. It includes protected routes, pagination, and persistent data storage.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 📸 Demo Video
+
+[Watch the demo](https://www.loom.com/share/fe6ee38c436745e397ba2cd994ab8660)
+
+## 🌍 Live Deployment
+
+[Live Demo](https://e-commerce-categorization.vercel.app/)
+
+## 📌 Features
+
+- **User Authentication:** Sign-up and login functionality
+- **Protected Route:** Only logged-in users can access the category selection page
+- **Category Management:**
+  - Displays categories from a database (generated using `faker.js`)
+  - Allows users to mark their preferred categories
+  - Persists user selections across sessions
+- **Pagination:** 6 categories per page
+- **Static Header:** Common across all pages
+- **Error Handling & Security:** Ensuring a smooth and secure user experience
+
+## 🛠️ Tech Stack
+
+- **Frontend:** Next.js, Tailwind CSS
+- **Backend:** Node.js
+- **Database:** MongoDB
+- **Libraries:**
+  - `faker.js` for generating 100 category entries
+  - `Tailwind CSS`
+  - `Resend (Email Verification)`
+  - `Next-Auth (Authentication)`
+
+## 🎯 Installation & Setup
+
+Follow these steps to set up and run the project locally:
+
+1. **Clone the repository:**
+
+```
+git clone https://github.com/farooq7234/ecom-assignment .git
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+```
+cd ecom-assignment
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. **Install dependencies:**
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+npm install
+```
 
-## Learn More
+3. **Setup environment variables:**  
+   Create a `.env` file and add the necessary credentials:
 
-To learn more about Next.js, take a look at the following resources:
+```
+MONGODB_URI =
+RESEND_API_KEY =
+NEXTAUTH_SECRET =
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+5. **Access the app:**  
+   Open [http://localhost:3000](http://localhost:3000) in your browser.
