@@ -6,7 +6,7 @@ This project is a simple e-commerce authentication system that allows users to s
 
 ## 📸 Demo Video
 
-[Watch the demo](https://www.loom.com/share/fe6ee38c436745e397ba2cd994ab8660)
+[Watch the demo](https://www.loom.com/share/098b23bd81b642ff8c1082f6083f2144?sid=c26036d9-a5aa-4412-beaf-d7a0afbedd39)
 
 ## 🌍 Live Deployment
 
