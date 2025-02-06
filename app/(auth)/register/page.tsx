@@ -28,26 +28,29 @@ export default function Register() {
     e.preventDefault();
     setLoading(true);
     try {
-      const response = await axios.post("/api/auth/register", formData);
+      await axios.post("/api/auth/register", formData);
+
       toast.success("Registration successful!");
-      router.push("/verify-code");
+      router.push(`/verify/${formData.username}`);
       setFormData({ username: "", email: "", password: "" });
     } catch (error) {
-      toast.error(error.response?.data?.message || "Registration failed");
+      console.log("Registration failed", error);
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <Card className="w-full max-w-md shadow-lg p-6">
-        <h2 className="text-2xl font-bold text-center mb-4">Register</h2>
+    <div className="flex items-center justify-center mt-20">
+      <Card className="w-full max-w-md shadow-lg py-20 px-8">
+        <h2 className="text-3xl font-bold text-center mb-4">
+          Create an Account
+        </h2>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-8">
             <div>
               <label htmlFor="username" className="block text-sm font-medium">
-                Username
+                Name
               </label>
               <Input
                 id="username"
@@ -90,9 +93,23 @@ export default function Register() {
               />
             </div>
 
-            <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Registering..." : "Register"}
+            <Button
+              type="submit"
+              className="w-full uppercase"
+              disabled={loading}
+            >
+              {loading ? "CREATING..." : "CREATE  ACCOUNT"}
             </Button>
+
+            <p className="text-center text-sm">
+              Have a Account?{" "}
+              <a
+                href="/sign-in"
+                className="text-primary uppercase text-black font-bold"
+              >
+                Login
+              </a>
+            </p>
           </form>
         </CardContent>
       </Card>

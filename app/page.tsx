@@ -1,101 +1,145 @@
-import Image from "next/image";
+"use client";
+import Interests from "@/components/Interests";
+import { BlurFade } from "@/components/magicui/blur-fade";
+import { Testimonial } from "@/components/Testimonial";
+import { Button } from "@/components/ui/button";
+import { useSession } from "next-auth/react";
+import Link from "next/link";
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const session = useSession();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+  return (
+    <main className="flex flex-col justify-center font-[family-name:var(--font-geist-sans)] text-black">
+      <BlurFade delay={0.25} inView>
+        {" "}
+        {!session.data?.user._id ? (
+          <div>
+            {/* Hero Section */}
+            <div className="container mx-auto px-4 py-20 text-center space-y-8 animate-fadeIn">
+              <h1 className="text-6xl font-bold tracking-tight">
+                Welcome to <span className="text-gray-800">ECOMMERCE</span>
+              </h1>
+              <p className="text-xl text-gray-700 max-w-2xl mx-auto">
+                Discover a new way to shop with our next-generation marketplace.
+                Join thousands of satisfied customers who trust us for their
+                shopping needs.
+              </p>
+              <div className="flex justify-center gap-4 pt-4">
+                <Button
+                  size="lg"
+                  className="text-lg px-8 hover:scale-105 transition-transform duration-300"
+                  asChild
+                >
+                  <Link href="/signup">Get Started</Link>
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="text-lg px-8 hover:scale-105 transition-transform duration-300"
+                  asChild
+                >
+                  <Link href="/signin">Sign In</Link>
+                </Button>
+              </div>
+            </div>
+
+            {/* Features Section */}
+            <section className="py-20 bg-white text-black animate-slideUp">
+              <div className="container mx-auto px-4 text-center">
+                <h2 className="text-4xl font-semibold mb-10">
+                  Why Shop With Us?
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                  {[
+                    {
+                      title: "Fast Delivery",
+                      desc: "Get your products delivered in record time with our premium logistics.",
+                    },
+                    {
+                      title: "Secure Payments",
+                      desc: "All transactions are encrypted for maximum security.",
+                    },
+                    {
+                      title: "24/7 Support",
+                      desc: "Our customer support is available anytime, anywhere.",
+                    },
+                  ].map((feature, index) => (
+                    <div
+                      key={index}
+                      className="px-10 py-20 border bg-gray-50 shadow-lg border-gray-300 rounded-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                    >
+                      <h3 className="text-4xl font-semibold mb-3">
+                        {feature.title}
+                      </h3>
+                      <p className="text-gray-800 text-xl">{feature.desc}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* Trending Products */}
+            <section className="py-20 bg-gray-100">
+              <div className="container mx-auto px-4 text-center">
+                <h2 className="text-4xl font-semibold mb-10">
+                  Trending Products
+                </h2>
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                  {Array(4)
+                    .fill("")
+                    .map((_, index) => (
+                      <div
+                        key={index}
+                        className="bg-white p-6 shadow-md rounded-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                      >
+                        <div className="h-40 bg-gray-300 rounded-lg animate-pulse"></div>
+                        <h3 className="text-2xl font-semibold mt-4">
+                          Product {index + 1}
+                        </h3>
+                        <p className="text-gray-700">$99.99</p>
+                        <Button size="sm" className="mt-4 w-full">
+                          Shop Now
+                        </Button>
+                      </div>
+                    ))}
+                </div>
+              </div>
+            </section>
+
+            {/* Testimonials */}
+            <section className="testimonial-section">
+              <Testimonial />
+            </section>
+
+            {/* Call to Action */}
+            <section className="py-20 border bg-gray-50 border-gray-200 text-center animate-slideUp">
+              <h2 className="text-4xl font-semibold mb-6">Join Us Today</h2>
+              <p className="text-gray-800 text-lg max-w-2xl mx-auto mb-8">
+                Sign up now and enjoy exclusive discounts, fast delivery, and a
+                seamless shopping experience.
+              </p>
+              <Button
+                size="lg"
+                className="text-lg px-8 bg-black hover:bg-gray-800 hover:scale-105 transition-transform duration-300"
+                asChild
+              >
+                <Link href="/signup">Get Started</Link>
+              </Button>
+            </section>
+
+            {/* Footer */}
+            <footer className="py-10 text-center text-gray-500">
+              <p>
+                &copy; {new Date().getFullYear()} ECOMMERCE. All rights
+                reserved.
+              </p>
+            </footer>
+          </div>
+        ) : (
+          <Interests />
+        )}
+      </BlurFade>
+    </main>
   );
 }

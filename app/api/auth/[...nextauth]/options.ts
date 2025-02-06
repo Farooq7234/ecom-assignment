@@ -2,7 +2,7 @@ import { NextAuthOptions } from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
 import bcrypt from "bcryptjs";
 import { connectToDatabase } from "@/lib/db";
-import User from "@/app/models/User";
+import UserModel from "@/app/models/User";
 
 export const authOptions: NextAuthOptions = {
   providers: [
@@ -14,14 +14,13 @@ export const authOptions: NextAuthOptions = {
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials: any): Promise<any> {
+        console.log("Received credentials in authorize:", credentials);
         await connectToDatabase();
         try {
-          const user = await User.findOne({
-            $or: [
-              { email: credentials.identifier },
-              { username: credentials.identifier },
-            ],
+          const user = await UserModel.findOne({
+            email: credentials.email,
           });
+          console.log("User found:", user);
           if (!user) {
             throw new Error("No user found with this email");
           }
@@ -32,13 +31,15 @@ export const authOptions: NextAuthOptions = {
             credentials.password,
             user.password
           );
+
+          console.log(isPasswordCorrect);
           if (isPasswordCorrect) {
             return user;
           } else {
             throw new Error("Incorrect password");
           }
-        } catch (err: any) {
-          throw new Error(err);
+        } catch (error: any) {
+          throw new Error(error);
         }
       },
     }),
@@ -67,5 +68,6 @@ export const authOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
   pages: {
     signIn: "/sign-in",
+    error: "/sign-in",
   },
 };

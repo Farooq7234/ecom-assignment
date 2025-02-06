@@ -1,5 +1,4 @@
 import mongoose, { model, models, Schema } from "mongoose";
-import bcrypt from "bcryptjs";
 
 export interface IUser {
   username: string;
@@ -8,7 +7,9 @@ export interface IUser {
   verifyCode: string;
   verifyCodeExpiry: Date;
   isVerified: boolean;
+  interests: string[];
   _id?: mongoose.Types.ObjectId;
+  selectedCategories: mongoose.Types.ObjectId[];
   createdAt?: Date;
   updatedAt?: Date;
 }
@@ -42,16 +43,10 @@ const UserSchema = new Schema<IUser>(
       type: Boolean,
       default: false,
     },
+    interests: [{ type: String }],
   },
   { timestamps: true }
 );
-
-UserSchema.pre("save", async function (next) {
-  if (this.isModified("password")) {
-    this.password = await bcrypt.hash(this.password, 10);
-  }
-  next();
-});
 
 const User = models?.User || model<IUser>("User", UserSchema);
 

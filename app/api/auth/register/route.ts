@@ -25,7 +25,9 @@ export async function POST(request: Request) {
     }
 
     const existingUserByEmail = await UserModel.findOne({ email });
-    const verifyCode = Math.floor(100000 + Math.random() * 900000).toString();
+    const verifyCode = Math.floor(
+      10000000 + Math.random() * 90000000
+    ).toString();
 
     if (existingUserByEmail) {
       if (existingUserByEmail.isVerified) {
@@ -55,8 +57,6 @@ export async function POST(request: Request) {
         verifyCode,
         verifyCodeExpiry: expiryDate,
         isVerified: false,
-        isAcceptingMessages: true,
-        messages: [],
       });
 
       await newUser.save();
@@ -72,7 +72,7 @@ export async function POST(request: Request) {
       return Response.json(
         {
           success: false,
-          message: emailResponse.message,
+          message: "Error sending verification email",
         },
         { status: 500 }
       );
@@ -82,6 +82,7 @@ export async function POST(request: Request) {
       {
         success: true,
         message: "User registered successfully. Please verify your account.",
+        username: username,
       },
       { status: 201 }
     );
