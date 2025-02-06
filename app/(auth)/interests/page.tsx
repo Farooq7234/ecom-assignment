@@ -70,7 +70,7 @@ export default function InterestsPage() {
 
       // Navigate to the home page (or another page) after successful submission
       router.push("/");
-    } catch (error) {
+    } catch (error: any) {
       toast({
         variant: "destructive",
         title: "Error",
