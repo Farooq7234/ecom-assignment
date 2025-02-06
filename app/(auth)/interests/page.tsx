@@ -70,14 +70,26 @@ export default function InterestsPage() {
 
       // Navigate to the home page (or another page) after successful submission
       router.push("/");
-    } catch (error: any) {
+    } catch (error: unknown) {
+      let errorMessage = "Something went wrong.";
+
+      if (error instanceof Error) {
+        errorMessage = error.message;
+      } else if (
+        typeof error === "object" &&
+        error !== null &&
+        "response" in error
+      ) {
+        const errResponse = error as {
+          response?: { data?: { error?: string } };
+        };
+        errorMessage = errResponse.response?.data?.error || errorMessage;
+      }
+
       toast({
         variant: "destructive",
         title: "Error",
-        description:
-          error.response?.data?.error ||
-          error.message ||
-          "Something went wrong.",
+        description: errorMessage,
       });
     } finally {
       setIsLoading(false);
