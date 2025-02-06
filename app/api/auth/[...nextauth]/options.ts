@@ -13,8 +13,11 @@ export const authOptions: NextAuthOptions = {
         email: { label: "Email", type: "text" },
         password: { label: "Password", type: "password" },
       },
-      async authorize(credentials: any): Promise<any> {
+      async authorize(credentials) {
         console.log("Received credentials in authorize:", credentials);
+        if (!credentials) {
+          throw new Error("No credentials provided");
+        }
         await connectToDatabase();
         try {
           const user = await UserModel.findOne({
