@@ -15,6 +15,11 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/hooks/use-toast";
 
+type SignInFormData = {
+  email: string;
+  password: string;
+};
+
 export default function SignInForm() {
   const router = useRouter();
   const { toast } = useToast();
@@ -26,7 +31,7 @@ export default function SignInForm() {
     },
   });
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: SignInFormData) => {
     const result = await signIn("credentials", {
       redirect: false,
       email: data.email,
